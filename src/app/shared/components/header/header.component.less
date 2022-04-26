@@ -1,0 +1,35 @@
+@import "../../styles/colors.less";
+
+.toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8%;
+  display: flex;
+  align-items: center;
+  background-color: @header-background;
+  color: white;
+  font-weight: 600;
+  img {
+    margin: 0 2%;
+    width: 5%;
+  }
+  #twitter-logo {
+    height: 40px;
+    margin: 0 8px;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  #youtube-logo {
+    height: 40px;
+    margin: 0 16px;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .menu {
+    flex: 1;
+  }
+}
