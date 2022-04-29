@@ -5,14 +5,35 @@
   grid-template-columns: 1fr 1fr 1fr;
   background: @footer-background;
   color: @footer-font-default;
+  width: 100%;
+  gap: 3%;
+  text-align: center;
+  padding-top: 3%;
   mat-icon {
     color: @icon-white;
+    font-size: 40px; //icon size is based on font-size. Width and height determines margins
+    width: 40px;
+    height: 40px;
+    transition: 0.3s;
+    &:hover {
+      transform: translateY(-10%);
+      transition: 0.3s;
+    }
   }
   .footer-left {
     justify-self: center;
+    img {
+      margin: 0 2%;
+      width: 10%;
+    }
   }
   .footer-middle {
     justify-self: center;
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
   }
   .footer-right {
     justify-self: center;
@@ -29,5 +50,13 @@
   }
   svg {
     color: @icon-white;
+    transition: 0.3s;
+    &:hover {
+      transform: translateY(-10%);
+      transition: 0.3s;
+    }
+  }
+  p {
+    text-align: justify;
   }
 }
