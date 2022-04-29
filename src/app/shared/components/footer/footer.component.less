@@ -1,0 +1,33 @@
+@import "../../styles/colors.less";
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: @footer-background;
+  color: @footer-font-default;
+  mat-icon {
+    color: @icon-white;
+  }
+  .footer-left {
+    justify-self: center;
+  }
+  .footer-middle {
+    justify-self: center;
+  }
+  .footer-right {
+    justify-self: center;
+    ul {
+      //remove the default list styling
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  h3 {
+    color: @footer-font-header;
+  }
+  svg {
+    color: @icon-white;
+  }
+}
