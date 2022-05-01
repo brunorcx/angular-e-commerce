@@ -32,6 +32,30 @@ export class AppComponent {
       rating: 3,
       image: 'assets/images/products/arroz.png',
     },
+    {
+      name: 'Product 3',
+      price: 70.0,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio.',
+      rating: 2.5,
+      image: 'assets/images/products/arroz.png',
+    },
+    {
+      name: 'Product 4',
+      price: 48.98,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
+      rating: 2,
+      image: 'assets/images/products/arroz.png',
+    },
+    {
+      name: 'Product 5',
+      price: 25.77,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
+      rating: 1,
+      image: 'assets/images/products/arroz.png',
+    },
   ];
   counter(rating: number) {
     let arrayRating: number[] = [];
