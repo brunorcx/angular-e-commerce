@@ -15,12 +15,14 @@
           </div>
           <div class="product-rating">
             <span class="product-rating-number">{{ product.rating }}</span>
-            <span class="product-rating-stars">
-              <mat-icon>star</mat-icon>
-              <mat-icon>star</mat-icon>
-              <mat-icon>star</mat-icon>
-              <mat-icon>star</mat-icon>
-              <mat-icon>star_half</mat-icon>
+            <span
+              *ngFor="let number of counter(product.rating)"
+              class="product-rating-stars"
+            >
+              <mat-icon *ngIf="number <= product.rating"> star</mat-icon>
+              <mat-icon *ngIf="number === 6"> star_half</mat-icon>
+              <!-- <p>{{ number }}</p> -->
+              <!-- <mat-icon *ngIf="product.rating >= 5">star_half</mat-icon> -->
             </span>
           </div>
         </div>
