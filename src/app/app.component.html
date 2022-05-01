@@ -4,7 +4,7 @@
     <li class="product" *ngFor="let product of products">
       <img src="{{ product.image }}" alt="" />
       <span> {{ product.name }}</span>
-      <span> {{ product.price }}</span>
+      <span>R$ {{ product.price }}</span>
       <div class="product-rating-stars">
         <span
           *ngFor="let number of counter(product.rating)"
