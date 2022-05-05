@@ -1,7 +1,19 @@
 <div class="toolbar" role="banner">
   <img alt="RodriguesDev logo" src="assets\Logo.png" />
   <span>Welcome</span>
-  <div class="menu"></div>
+  <div class="menu">
+    <ul>
+      <li>
+        <a routerLink="/first-component" routerLinkActive="active">Home</a>
+      </li>
+      <li>
+        <a routerLink="/manage-products" routerLinkActive="active">Produtos</a>
+      </li>
+      <li>
+        <a routerLink="/" routerLinkActive="active">Super Mercados</a>
+      </li>
+    </ul>
+  </div>
   <a
     aria-label="Angular on twitter"
     target="_blank"
@@ -46,3 +58,5 @@
     </svg>
   </a>
 </div>
+<!-- The routed views render in the <router-outlet>-->
+<router-outlet></router-outlet>

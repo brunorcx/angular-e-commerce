@@ -9,11 +9,30 @@
   display: flex;
   align-items: center;
   background-color: @header-background;
-  color: white;
+  color: @header-font-white;
   font-weight: 600;
   img {
     margin: 0 2%;
     width: 5%;
+  }
+  .menu {
+    flex: 1;
+    ul {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      gap: 2rem;
+      li {
+        a {
+          color: @header-font-white;
+          text-decoration: none;
+          &:hover {
+            cursor: pointer;
+            color: @font-hover;
+          }
+        }
+      }
+    }
   }
   #twitter-logo {
     height: 40px;
@@ -28,8 +47,5 @@
     &:hover {
       opacity: 0.8;
     }
-  }
-  .menu {
-    flex: 1;
   }
 }
