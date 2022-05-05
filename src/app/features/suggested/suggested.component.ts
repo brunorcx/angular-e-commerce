@@ -14,51 +14,55 @@ interface Products {
   styleUrls: ['./suggested.component.less'],
 })
 export class SuggestedComponent implements OnInit {
-  constructor() {}
+  constructor() {
+    this.products = [
+      {
+        name: 'Product 1',
+        price: 50.0,
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
+        rating: 4.5,
+        image: 'assets/images/products/arroz.png',
+      },
+      {
+        name: 'Product 2',
+        price: 60.0,
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
+        rating: 3,
+        image: 'assets/images/products/arroz.png',
+      },
+      {
+        name: 'Product 3',
+        price: 70.0,
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio.',
+        rating: 2.5,
+        image: 'assets/images/products/arroz.png',
+      },
+      {
+        name: 'Product 4',
+        price: 48.98,
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
+        rating: 2,
+        image: 'assets/images/products/arroz.png',
+      },
+      {
+        name: 'Product 5',
+        price: 25.77,
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
+        rating: 1,
+        image: 'assets/images/products/arroz.png',
+      },
+    ];
+  }
 
   ngOnInit(): void {}
-  products: Products[] = [
-    {
-      name: 'Product 1',
-      price: 50.0,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-      rating: 4.5,
-      image: 'assets/images/products/arroz.png',
-    },
-    {
-      name: 'Product 2',
-      price: 60.0,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-      rating: 3,
-      image: 'assets/images/products/arroz.png',
-    },
-    {
-      name: 'Product 3',
-      price: 70.0,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio.',
-      rating: 2.5,
-      image: 'assets/images/products/arroz.png',
-    },
-    {
-      name: 'Product 4',
-      price: 48.98,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-      rating: 2,
-      image: 'assets/images/products/arroz.png',
-    },
-    {
-      name: 'Product 5',
-      price: 25.77,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-      rating: 1,
-      image: 'assets/images/products/arroz.png',
-    },
-  ];
+
+  products: Products[] = [];
+
   counter(rating: number) {
     let arrayRating: number[] = [];
     for (let i = 0; i < rating; i++) {

@@ -4,9 +4,9 @@ import { AppComponent } from './app.component';
 import { ManageProductsComponent } from './features/manage-products/manage-products.component';
 import { SuggestedComponent } from './features/suggested/suggested.component';
 const routes: Routes = [
-  { path: '', redirectTo: '/first-component', pathMatch: 'full' },
-  { path: 'first-component', component: SuggestedComponent },
+  { path: 'suggested', component: SuggestedComponent },
   { path: 'manage-products', component: ManageProductsComponent },
+  { path: '', redirectTo: '/suggested', pathMatch: 'full' },
   // { path: '**', component: AppComponent }, // redirect to home page on route error
 ];
 
