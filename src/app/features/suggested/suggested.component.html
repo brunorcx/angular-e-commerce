@@ -1,0 +1,22 @@
+<main class="suggested">
+  <ul>
+    <li class="product" *ngFor="let product of products">
+      <img src="{{ product.image }}" alt="" />
+      <span> {{ product.name }}</span>
+      <span>R$ {{ product.price }}</span>
+      <div class="product-rating-stars">
+        <span
+          *ngFor="let number of counter(product.rating)"
+          title="{{ product.rating }}"
+        >
+          <mat-icon *ngIf="number <= product.rating; else half_star">
+            star
+          </mat-icon>
+          <ng-template #half_star>
+            <mat-icon #half_star *ngIf="number === 6"> star_half</mat-icon>
+          </ng-template>
+        </span>
+      </div>
+    </li>
+  </ul>
+</main>
