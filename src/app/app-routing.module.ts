@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'suggested', component: SuggestedComponent },
   { path: 'manage-products', component: ManageProductsComponent },
   { path: '', redirectTo: '/suggested', pathMatch: 'full' },
-  // { path: '**', component: AppComponent }, // redirect to home page on route error
+  { path: '**', component: SuggestedComponent }, // redirect to home page on route error
 ];
 
 @NgModule({
