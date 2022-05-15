@@ -1,8 +1,12 @@
 @import "../../shared/styles/colors.less";
 @import "../../shared/styles/mediaQuery.less";
 .suggested {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2gifr 7fr;
   margin-left: 1%;
+  .app-sidebar {
+    margin: 10px 0 1% 0;
+  }
   h1 {
     text-align: left;
     color: @font-default-black;
