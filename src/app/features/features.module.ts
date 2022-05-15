@@ -4,9 +4,10 @@ import { ManageProductsComponent } from './manage-products/manage-products.compo
 import { SuggestedComponent } from './suggested/suggested.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { MallsComponent } from './malls/malls.component';
 
 @NgModule({
-  declarations: [ManageProductsComponent, SuggestedComponent, SidebarComponent],
+  declarations: [ManageProductsComponent, SuggestedComponent, SidebarComponent, MallsComponent],
   imports: [CommonModule, MatIconModule],
 })
 export class FeaturesModule {}
