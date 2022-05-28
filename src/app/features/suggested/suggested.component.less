@@ -1,14 +1,19 @@
 @import "../../shared/styles/colors.less";
 @import "../../shared/styles/mediaQuery.less";
 .suggested {
-  display: flex;
+  display: grid;
   margin-left: 1%;
+  main {
+    display: grid;
+    //two grid columns side by side
+    grid-template-columns: 1.5fr 8.5fr;
+  }
   h1 {
     text-align: left;
     color: @font-default-black;
     margin-left: 2%;
   }
-  .search-bar{
+  .search-bar {
     // center the div
     display: flex;
     justify-content: center;
@@ -17,12 +22,12 @@
     margin-top: 1%;
     height: 2rem;
     width: 100%;
-    input{
-      height:100%;
+    input {
+      height: 100%;
       flex: 1;
     }
 
-    .search-button{
+    .search-button {
       margin-left: 1%;
       margin-right: 1%;
       background-color: @font-default-white;
@@ -32,7 +37,7 @@
       padding: 1%;
       font-size: 1.2em;
       font-weight: bold;
-      &:hover{
+      &:hover {
         background-color: @background-default-black;
         color: @font-default-white;
       }

@@ -1,13 +1,13 @@
 <div class="suggested">
   <!-- create search bar -->
-  <app-sidebar class="app-sidebar"></app-sidebar>
+  <div class="search-bar">
+    <input type="text" placeholder="Procure um produto...">
+    <button class="search-button">
+      Buscar
+    </button>
+  </div>
   <main>
-    <div class="search-bar">
-      <input type="text" placeholder="Procure um produto...">
-      <button class="search-button">
-        Buscar
-      </button>
-    </div>
+    <app-sidebar class="app-sidebar"></app-sidebar>
     <ul>
       <li class="product" *ngFor="let product of products">
         <img src="{{ product.image }}" alt="" />
@@ -22,8 +22,8 @@
               <mat-icon #half_star *ngIf="number === 6"> star_half</mat-icon>
             </ng-template>
           </span>
-          </div>
-          </li>
-          </ul>
-          </main>
+        </div>
+        </li>
+        </ul>
+        </main>
 </div>
