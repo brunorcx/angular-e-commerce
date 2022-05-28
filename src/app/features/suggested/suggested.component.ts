@@ -73,4 +73,13 @@ export class SuggestedComponent implements OnInit {
 
     return arrayRating;
   }
+  searchProducts(searchValue: string) {
+    if (searchValue === '') {
+      return this.products;
+    }
+    return this.products.filter((product) => {
+      return product.name.toLowerCase().includes(searchValue.toLowerCase());
+    });
+  }
+  value = '';
 }

@@ -1,7 +1,12 @@
 <div class="suggested">
   <!-- create search bar -->
   <div class="search-bar">
-    <input type="text" placeholder="Procure um produto...">
+    <!-- Create a input and pass it onchange value to a function -->
+    <input #search type="text" placeholder="Procure um produto..." (keyup.enter)="searchProducts(search.value)"
+      (blur)="searchProducts(search.value)">
+    <!-- blur save the state of input value in case the user clicks elsewhere -->
+    <p>{{value}}</p>
+
     <button class="search-button">
       Buscar
     </button>
@@ -23,7 +28,7 @@
             </ng-template>
           </span>
         </div>
-        </li>
-        </ul>
-        </main>
+      </li>
+    </ul>
+  </main>
 </div>
