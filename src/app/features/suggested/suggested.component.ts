@@ -58,7 +58,7 @@ export class SuggestedComponent implements OnInit {
         image: 'assets/images/products/arroz.png',
       },
     ];
-    this.filteredProducts = [];
+    this.filteredProducts = this.products;
   }
 
   ngOnInit(): void {}
@@ -77,7 +77,6 @@ export class SuggestedComponent implements OnInit {
     return arrayRating;
   }
   searchProducts(searchValue: string) {
-    console.log(searchValue);
     this.filteredProducts = [];
     if (searchValue === '') {
       this.filteredProducts = this.products;
@@ -90,14 +89,6 @@ export class SuggestedComponent implements OnInit {
       });
       if (this.filteredProducts.length === 0) {
         this.filteredProducts = [];
-        const empty: Products = {
-          name: 'empty',
-          price: 0,
-          description: '',
-          rating: 0,
-          image: '',
-        };
-        this.filteredProducts.push(empty);
       }
     }
   }
