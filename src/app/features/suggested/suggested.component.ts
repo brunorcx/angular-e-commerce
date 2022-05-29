@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { __makeTemplateObject } from 'tslib';
 
 interface Products {
   name: string;
@@ -25,7 +26,7 @@ export class SuggestedComponent implements OnInit {
         image: 'assets/images/products/arroz.png',
       },
       {
-        name: 'Product 2',
+        name: 'Product 10',
         price: 60.0,
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
@@ -57,11 +58,13 @@ export class SuggestedComponent implements OnInit {
         image: 'assets/images/products/arroz.png',
       },
     ];
+    this.filteredProducts = [];
   }
 
   ngOnInit(): void {}
 
   products: Products[] = [];
+  filteredProducts: Products[] = [];
 
   counter(rating: number) {
     let arrayRating: number[] = [];
@@ -74,12 +77,28 @@ export class SuggestedComponent implements OnInit {
     return arrayRating;
   }
   searchProducts(searchValue: string) {
+    console.log(searchValue);
+    this.filteredProducts = [];
     if (searchValue === '') {
-      return this.products;
+      this.filteredProducts = this.products;
+    } else {
+      this.products.filter((product) => {
+        //filter products and assign to filteredProducts
+        if (product.name.toLowerCase().includes(searchValue.toLowerCase())) {
+          this.filteredProducts.push(product);
+        }
+      });
+      if (this.filteredProducts.length === 0) {
+        this.filteredProducts = [];
+        const empty: Products = {
+          name: 'empty',
+          price: 0,
+          description: '',
+          rating: 0,
+          image: '',
+        };
+        this.filteredProducts.push(empty);
+      }
     }
-    return this.products.filter((product) => {
-      return product.name.toLowerCase().includes(searchValue.toLowerCase());
-    });
   }
-  value = '';
 }

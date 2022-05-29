@@ -5,14 +5,23 @@
     <input #search type="text" placeholder="Procure um produto..." (keyup.enter)="searchProducts(search.value)"
       (blur)="searchProducts(search.value)">
     <!-- blur save the state of input value in case the user clicks elsewhere -->
-    <p>{{value}}</p>
 
     <button class="search-button">
       Buscar
     </button>
   </div>
   <main>
-    <app-sidebar class="app-sidebar"></app-sidebar>
+    <div *ngFor="let prod of filteredProducts">
+      <p>{{prod.name}}</p>
+      <p>{{prod.price}}</p>
+      <p>{{prod.rating}}</p>
+      <p>{{prod.rating}}</p>
+    </div>
+    <app-sidebar class="app-sidebar">
+      <!-- show all filtered products -->
+
+
+    </app-sidebar>
     <ul>
       <li class="product" *ngFor="let product of products">
         <img src="{{ product.image }}" alt="" />
