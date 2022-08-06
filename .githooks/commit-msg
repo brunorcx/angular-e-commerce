@@ -16,6 +16,9 @@ fi
 # check semantic versioning scheme
 if ! echo "$commitTitle" | grep -qE '^((build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|¯\\_\(ツ\)_/¯)(\(\w+\))?(!)?(: (.*\s*)*))|(Merge (.*\s*)*)|(Initial commit$)'; then
 	echo "Your commit title did not follow semantic versioning: $commitTitle"
-	echo "Please see https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commit-message-format"
+	echo "Please follow the following format"
+	echo "<type>[optional scope]: <description>"
+	echo "[optional body]"
+	echo "[optional footer]"
 	exit 1
 fi

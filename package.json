@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "preinstall": "git config core.hooksPath .githooks"
+    "preinstall": "git config core.hooksPath .githooks",
+    "compodoc": "npx compodoc -p tsconfig.doc.json -d docs"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +30,7 @@
     "@angular-devkit/build-angular": "~13.3.3",
     "@angular/cli": "~13.3.3",
     "@angular/compiler-cli": "~13.3.0",
+    "@compodoc/compodoc": "^1.1.19",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~4.0.0",
