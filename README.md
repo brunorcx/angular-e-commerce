@@ -7,7 +7,7 @@ https://brunorcx.github.io/angular-e-commerce/
 
 ## How to install
 
-Run `npm install` to get all depencies
+Run `npm install` to get and install all dependencies
 
 ## How to run
 
