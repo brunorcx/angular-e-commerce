@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { __makeTemplateObject } from 'tslib';
+import { TagsService } from '../../core/services/tags.service';
 
 interface Products {
   name: string;
@@ -15,7 +16,7 @@ interface Products {
   styleUrls: ['./suggested.component.less'],
 })
 export class SuggestedComponent implements OnInit {
-  constructor() {
+  constructor(private tags: TagsService) {
     this.products = [
       {
         name: 'Product 1',
@@ -26,7 +27,7 @@ export class SuggestedComponent implements OnInit {
         image: 'assets/images/products/arroz.png',
       },
       {
-        name: 'Product 10',
+        name: 'Product 2',
         price: 60.0,
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
@@ -61,7 +62,9 @@ export class SuggestedComponent implements OnInit {
     this.filteredProducts = this.products;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.tags.setTags(['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5']);
+  }
 
   products: Products[] = [];
   filteredProducts: Products[] = [];
