@@ -2,11 +2,9 @@
 @import "../../shared/styles/mediaQuery.less";
 .suggested {
   display: grid;
-  margin-left: 1%;
-  main {
-    display: grid;
-    //two grid columns side by side
-    grid-template-columns: 1.5fr 8.5fr;
+  grid-template-columns: 1.5fr 8.5fr;
+  main{
+    margin-left: 5%;
   }
   h1 {
     text-align: left;
@@ -41,6 +39,8 @@
       padding: 1%;
       font-size: 1.2em;
       font-weight: bold;
+      height: 2.5rem;
+
       &:hover {
         background-color: @background-default-black;
         color: @font-default-white;

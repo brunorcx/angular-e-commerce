@@ -1,17 +1,17 @@
 <div class="suggested">
-  <!-- create search bar -->
-  <div class="search-bar">
-    <!-- Create a input and pass it onchange value to a function -->
-    <input #search type="text" placeholder="Procure um produto..." (keyup.enter)="searchProducts(search.value)"
-      (blur)="searchProducts(search.value)">
-    <!-- blur save the state of input value in case the user clicks elsewhere -->
-
-    <button class="search-button">
-      Buscar
-    </button>
-  </div>
+  <app-sidebar class="app-sidebar"></app-sidebar>
   <main>
-    <app-sidebar class="app-sidebar"></app-sidebar>
+     <!-- create search bar -->
+    <div class="search-bar">
+      <!-- Create a input and pass it onchange value to a function -->
+      <input #search type="text" placeholder="Procure um produto..." (keyup.enter)="searchProducts(search.value)"
+        (blur)="searchProducts(search.value)">
+      <!-- blur save the state of input value in case the user clicks elsewhere -->
+  
+      <button class="search-button">
+        Buscar
+      </button>
+    </div>
     <!-- show no products ngif -->
     <div class="no-products" *ngIf="filteredProducts.length === 0; else productsList">
       <h2>Nenhum produto encontrado</h2>
