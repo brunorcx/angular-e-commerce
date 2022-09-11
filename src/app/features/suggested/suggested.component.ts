@@ -63,7 +63,16 @@ export class SuggestedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tags.setTags(['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5']);
+    this.tags.setTags([
+      'Carboidratos',
+      'Legumes, verduras e vegetais ',
+      'Frutas',
+      'Leite e derivados',
+      'Carnes e ovos',
+      'Leguminosas e oleaginosas',
+      'Óleos e gorduras ',
+      'Açúcares e doces',
+    ]);
   }
 
   products: Products[] = [];
