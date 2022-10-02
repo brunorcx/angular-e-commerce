@@ -26,7 +26,7 @@ export class SuggestedComponent implements OnInit {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
         rating: 4.5,
         image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos'],
+        tags: ['Carboidratos', 'Legumes, verduras e vegetais'],
       },
       {
         name: 'Product 2',
@@ -35,7 +35,7 @@ export class SuggestedComponent implements OnInit {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
         rating: 3,
         image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos'],
+        tags: ['Carboidratos', 'Frutas'],
       },
       {
         name: 'Product 3',
@@ -44,7 +44,7 @@ export class SuggestedComponent implements OnInit {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio.',
         rating: 2.5,
         image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos'],
+        tags: ['Carboidratos', 'Leite e derivados'],
       },
       {
         name: 'Product 4',
@@ -53,7 +53,7 @@ export class SuggestedComponent implements OnInit {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
         rating: 2,
         image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos'],
+        tags: ['Carboidratos', 'Carnes e ovos', 'Frutas'],
       },
       {
         name: 'Product 5',
@@ -73,12 +73,12 @@ export class SuggestedComponent implements OnInit {
   ngOnInit(): void {
     this.tags.setTags([
       'Carboidratos',
-      'Legumes, verduras e vegetais ',
+      'Legumes, verduras e vegetais',
       'Frutas',
       'Leite e derivados',
       'Carnes e ovos',
       'Leguminosas e oleaginosas',
-      'Óleos e gorduras ',
+      'Óleos e gorduras',
       'Açúcares e doces',
     ]);
     //Reset selected tags after changing routes
@@ -144,13 +144,21 @@ export class SuggestedComponent implements OnInit {
     }
     if (this.tagsSelected.length > 0) {
       let filteredProductsByCategory: Products[] = [];
-      for (const tag of this.tagsSelected) {
-        currentProducts.forEach((product) => {
-          if (product.tags.indexOf(tag) !== -1) {
-            filteredProductsByCategory.push(product);
+      currentProducts.forEach((product) => {
+        let i = 0;
+        if (this.tagsSelected.length <= product.tags.length) {
+          for (const tag of this.tagsSelected) {
+            if (product.tags.indexOf(tag) === -1) {
+              break;
+            }
+            i++;
           }
-        });
-      }
+        }
+        if (i === this.tagsSelected.length) {
+          filteredProductsByCategory.push(product);
+        }
+      });
+
       if (filteredProductsByCategory.length > 0) {
         //Remove duplicates
         const uniqueProducts = filteredProductsByCategory.filter(
