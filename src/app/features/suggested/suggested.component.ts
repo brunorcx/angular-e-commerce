@@ -15,6 +15,7 @@ interface Products {
   selector: 'app-suggested',
   templateUrl: './suggested.component.html',
   styleUrls: ['./suggested.component.less'],
+  providers: [TagsService],
 })
 export class SuggestedComponent implements OnInit {
   constructor(public tags: TagsService) {
