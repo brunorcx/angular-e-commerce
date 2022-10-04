@@ -19,12 +19,17 @@
     <div
       class="no-products"
       *ngIf="filteredProducts.length === 0; else productsList"
+      [@fadeInOut]
     >
       <h2>Nenhum produto encontrado</h2>
     </div>
     <ng-template #productsList>
       <ul>
-        <li class="product" *ngFor="let product of filteredProducts">
+        <li
+          class="product"
+          *ngFor="let product of filteredProducts"
+          [@fadeInOut]
+        >
           <img src="{{ product.image }}" alt="" />
           <span> {{ product.name }}</span>
           <span>R$ {{ product.price }}</span>
