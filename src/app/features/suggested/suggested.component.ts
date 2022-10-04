@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { __makeTemplateObject } from 'tslib';
 import { TagsService } from '../../core/services/tags.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 interface Products {
   name: string;
@@ -16,6 +23,19 @@ interface Products {
   templateUrl: './suggested.component.html',
   styleUrls: ['./suggested.component.less'],
   providers: [TagsService],
+  animations: [
+    trigger('fadeInOut', [
+      state(
+        'void',
+        style({
+          opacity: 0,
+          transform: 'translateY(50px)',
+          margin: '-30px 0 0 0',
+        })
+      ),
+      transition('void <=> *', animate(250)),
+    ]),
+  ],
 })
 export class SuggestedComponent implements OnInit {
   constructor(public tags: TagsService) {
