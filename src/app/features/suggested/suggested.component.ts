@@ -12,11 +12,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface Product {
+  id?: string;
   name: string;
   price: number;
-  description: string;
+  description?: string;
   rating: number;
-  image: string;
+  img: string;
   tags: string[];
 }
 
@@ -48,7 +49,7 @@ export class SuggestedComponent implements OnInit {
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
         rating: 4.5,
-        image: 'assets/images/products/arroz.png',
+        img: 'assets/images/products/arroz.png',
         tags: ['Carboidratos', 'Legumes, verduras e vegetais'],
       },
       {
@@ -57,7 +58,7 @@ export class SuggestedComponent implements OnInit {
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
         rating: 3,
-        image: 'assets/images/products/arroz.png',
+        img: 'assets/images/products/arroz.png',
         tags: ['Carboidratos', 'Frutas'],
       },
       {
@@ -66,7 +67,7 @@ export class SuggestedComponent implements OnInit {
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio.',
         rating: 2.5,
-        image: 'assets/images/products/arroz.png',
+        img: 'assets/images/products/arroz.png',
         tags: ['Carboidratos', 'Leite e derivados'],
       },
       {
@@ -75,7 +76,7 @@ export class SuggestedComponent implements OnInit {
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
         rating: 2,
-        image: 'assets/images/products/arroz.png',
+        img: 'assets/images/products/arroz.png',
         tags: ['Carboidratos', 'Carnes e ovos', 'Frutas'],
       },
       {
@@ -84,7 +85,7 @@ export class SuggestedComponent implements OnInit {
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
         rating: 1,
-        image: 'assets/images/products/arroz.png',
+        img: 'assets/images/products/arroz.png',
         tags: ['Carboidratos', 'Frutas'],
       },
     ];
@@ -95,15 +96,20 @@ export class SuggestedComponent implements OnInit {
   }
   ngOnInit(): void {
     this.tags.setTags([
-      'Carboidratos',
-      'Legumes, verduras e vegetais',
-      'Frutas',
+      'Padaria',
+      'Hortifruti',
       'Leite e derivados',
-      'Carnes e ovos',
-      'Leguminosas e oleaginosas',
-      'Óleos e gorduras',
+      'Carnes',
       'Açúcares e doces',
     ]);
+    // 'Carboidratos',
+    // 'Legumes, verduras e vegetais',
+    // 'Frutas',
+    // 'Leite e derivados',
+    // 'Carnes e ovos',
+    // 'Leguminosas e oleaginosas',
+    // 'Óleos e gorduras',
+    // 'Açúcares e doces',
     //Reset selected tags after changing routes
     this.tags.setSelectTags([]);
 
@@ -114,16 +120,12 @@ export class SuggestedComponent implements OnInit {
       }
     });
 
-    this.tags.getCurrentTags.subscribe((data) => {
-      if (data) {
-        this.tagsSelected = data;
-        this.filterProductsByTag();
-      }
-    });
-    this.productsN = this.http.get<Product[]>('http://localhost:3333/products');
-    console.log(this.productsN);
-    this.productsN.subscribe((data) => {
+    this.goiProds = this.http.get<Product[]>('http://localhost:3333/products');
+    this.goiProds.subscribe((data) => {
       console.log(data);
+      for (const prod of data) {
+        if (prod.img.indexOf('sem-imagem.png') === -1) this.products.push(prod);
+      }
     });
   }
 
@@ -133,7 +135,7 @@ export class SuggestedComponent implements OnInit {
   filteredByTags: Product[] = [];
   tagsSelected: string[];
   searchValue: string = '';
-  productsN: Observable<Product[]> = new Observable<Product[]>();
+  goiProds: Observable<Product[]> = new Observable<Product[]>();
 
   counter(rating: number) {
     let arrayRating: number[] = [];

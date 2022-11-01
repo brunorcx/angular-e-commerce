@@ -14,7 +14,7 @@
       <!-- blur save the state of input value in case the user clicks elsewhere -->
 
       <button class="search-button">
-        <mat-icon > search </mat-icon>
+        <mat-icon> search </mat-icon>
       </button>
     </div>
     <!-- show no products ngif -->
@@ -32,7 +32,7 @@
           *ngFor="let product of filteredProducts"
           [@fadeInOut]
         >
-          <img src="{{ product.image }}" alt="" />
+          <img src="{{ product.img }}" alt="" />
           <span> {{ product.name }}</span>
           <span>R$ {{ product.price }}</span>
           <div class="product-rating-stars">
