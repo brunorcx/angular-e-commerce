@@ -8,8 +8,10 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-interface Products {
+interface Product {
   name: string;
   price: number;
   description: string;
@@ -38,7 +40,7 @@ interface Products {
   ],
 })
 export class SuggestedComponent implements OnInit {
-  constructor(public tags: TagsService) {
+  constructor(public tags: TagsService, private http: HttpClient) {
     this.products = [
       {
         name: 'Product 1',
@@ -111,14 +113,27 @@ export class SuggestedComponent implements OnInit {
         this.filterProductsByTag();
       }
     });
+
+    this.tags.getCurrentTags.subscribe((data) => {
+      if (data) {
+        this.tagsSelected = data;
+        this.filterProductsByTag();
+      }
+    });
+    this.productsN = this.http.get<Product[]>('http://localhost:3333/products');
+    console.log(this.productsN);
+    this.productsN.subscribe((data) => {
+      console.log(data);
+    });
   }
 
-  products: Products[] = [];
-  filteredProducts: Products[] = [];
-  filteredBySearch: Products[] = [];
-  filteredByTags: Products[] = [];
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
+  filteredBySearch: Product[] = [];
+  filteredByTags: Product[] = [];
   tagsSelected: string[];
   searchValue: string = '';
+  productsN: Observable<Product[]> = new Observable<Product[]>();
 
   counter(rating: number) {
     let arrayRating: number[] = [];
@@ -164,7 +179,7 @@ export class SuggestedComponent implements OnInit {
       currentProducts = this.filteredProducts;
     }
     if (this.tagsSelected.length > 0) {
-      let filteredProductsByCategory: Products[] = [];
+      let filteredProductsByCategory: Product[] = [];
       currentProducts.forEach((product) => {
         let i = 0;
         if (this.tagsSelected.length <= product.tags.length) {
