@@ -26,6 +26,23 @@
       <h2>Nenhum produto encontrado</h2>
     </div>
     <ng-template #productsList>
+      <div class="suggested-header">
+        <div mdbDropdown class="dropdown">
+          <button class="dropdown-button" type="button" mdbDropdownToggle>
+            <h3>Ordenar por:</h3>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+
+          <!-- prettier-ignore -->
+          <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li>Nome</li>
+            <li>Preço</li>
+            <li>Categoria</li>
+          </ul>
+        </div>
+        <h1 *ngIf="checkFilteredTags(showProducts)">{{ tagsSelected[0] }}</h1>
+        <h1 *ngIf="!checkFilteredTags(showProducts)">Todos os produtos</h1>
+      </div>
       <ul>
         <li
           class="product"

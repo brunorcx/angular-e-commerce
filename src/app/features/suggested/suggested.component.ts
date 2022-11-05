@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { __makeTemplateObject } from 'tslib';
 import { TagsService } from '../../core/services/tags.service';
 import {
@@ -20,6 +20,11 @@ interface Product {
   img: string;
   tags: string[];
 }
+interface ShowProducts {
+  carnes: Product[];
+  hortifruti: Product[];
+  padaria: Product[];
+}
 
 @Component({
   selector: 'app-suggested',
@@ -36,11 +41,21 @@ interface Product {
           margin: '-30px 0 0 0',
         })
       ),
-      transition('void <=> *', animate(250)),
+      transition('void <=> *', animate(150)),
     ]),
   ],
 })
 export class SuggestedComponent implements OnInit {
+  products: Product[];
+  filteredProducts: Product[];
+  filteredBySearch: Product[];
+  filteredByTags: Product[];
+  tagsSelected: string[];
+  showProducts: ShowProducts;
+  searchValue: string = '';
+  goiProds$: Observable<Product[]>;
+  filteredProdsEmit: EventEmitter<Product[]>;
+
   constructor(public tags: TagsService, private http: HttpClient) {
     this.products = [
       {
@@ -93,13 +108,16 @@ export class SuggestedComponent implements OnInit {
     this.filteredBySearch = [];
     this.filteredByTags = [];
     this.tagsSelected = [];
+    this.showProducts = <ShowProducts>{};
+    this.goiProds$ = new Observable<Product[]>();
+    this.filteredProdsEmit = new EventEmitter<Product[]>();
   }
   ngOnInit(): void {
     this.tags.setTags([
-      'Padaria',
-      'Hortifruti',
-      'Leite e derivados',
       'Carnes',
+      'Hortifruti',
+      'Padaria',
+      'Leite e derivados',
       'Açúcares e doces',
     ]);
     // 'Carboidratos',
@@ -120,22 +138,21 @@ export class SuggestedComponent implements OnInit {
       }
     });
 
-    this.goiProds = this.http.get<Product[]>('http://localhost:3333/products');
-    this.goiProds.subscribe((data) => {
+    this.goiProds$ = this.http.get<Product[]>('http://localhost:3333/products');
+    this.goiProds$.subscribe((data) => {
       console.log(data);
       for (const prod of data) {
         if (prod.img.indexOf('sem-imagem.png') === -1) this.products.push(prod);
       }
     });
+    this.filteredProdsEmit.subscribe((data) => {
+      if (this.tagsSelected.length === 1) {
+        // prettier-ignore
+        this.showProducts[this.tagsSelected[0].toLowerCase() as keyof ShowProducts] = data;
+        console.log(this.showProducts.carnes);
+      } else this.showProducts = <ShowProducts>{};
+    });
   }
-
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
-  filteredBySearch: Product[] = [];
-  filteredByTags: Product[] = [];
-  tagsSelected: string[];
-  searchValue: string = '';
-  goiProds: Observable<Product[]> = new Observable<Product[]>();
 
   counter(rating: number) {
     let arrayRating: number[] = [];
@@ -147,6 +164,9 @@ export class SuggestedComponent implements OnInit {
 
     return arrayRating;
   }
+  checkFilteredTags(tags: ShowProducts) {
+    return Object.values(tags).length > 0;
+  }
   searchProducts(searchValue: string) {
     this.filteredBySearch = [];
     let currentProducts = this.products;
@@ -157,8 +177,10 @@ export class SuggestedComponent implements OnInit {
     }
     if (searchValue === '') {
       this.filteredProducts = currentProducts;
+      this.filteredProdsEmit.emit(this.filteredProducts);
       if (this.tagsSelected.length > 0) {
         this.filteredProducts = this.filteredByTags;
+        this.filteredProdsEmit.emit(this.filteredProducts);
       }
     } else {
       currentProducts.filter((product) => {
@@ -169,6 +191,7 @@ export class SuggestedComponent implements OnInit {
       });
 
       this.filteredProducts = this.filteredBySearch;
+      this.filteredProdsEmit.emit(this.filteredProducts);
     }
     if (searchValue !== '') this.filteredBySearch = this.filteredProducts;
     this.searchValue = searchValue;
@@ -203,8 +226,10 @@ export class SuggestedComponent implements OnInit {
           (ele, pos) => filteredProductsByCategory.indexOf(ele) == pos
         );
         this.filteredProducts = uniqueProducts;
+        this.filteredProdsEmit.emit(this.filteredProducts);
       } else {
         this.filteredProducts = filteredProductsByCategory;
+        this.filteredProdsEmit.emit(this.filteredProducts);
       }
     } else {
       this.searchProducts(this.searchValue);

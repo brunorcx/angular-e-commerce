@@ -1,8 +1,11 @@
 @import "../../shared/styles/colors.less";
 @import "../../shared/styles/mediaQuery.less";
+@import "../../shared/styles/dropdown.less";
+
 .suggested {
   display: grid;
   grid-template-columns: 1.5fr 8.5fr;
+  background: @main-background;
   main {
     margin-left: 5%;
   }
@@ -10,6 +13,7 @@
     text-align: left;
     color: @font-default-black;
     margin-left: 2%;
+    margin-top: 1rem;
   }
   h2 {
     text-align: center;
@@ -26,7 +30,7 @@
       height: 100%;
       flex: 1;
       outline-width: 0;
-      border: 1px solid rgba(160, 160, 160, 0.7);
+      border: 1px solid @main-border;
       padding: 10px;
       padding-left: 2%;
       border-right: transparent;
@@ -38,7 +42,7 @@
       background-color: @font-default-white;
       color: @font-default-black;
       border-radius: 0rem 2rem 2rem 0rem;
-      border: 1px solid rgba(160, 160, 160, 0.7);
+      border: 1px solid @main-border;
       padding: 0.6% 1.5% 0 1.5%;
       font-size: 1.2em;
       font-weight: bold;
@@ -50,7 +54,16 @@
       }
     }
   }
-
+  .suggested-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    .dropdown {
+      display: flex;
+      align-items: center;
+      margin-right: 2%;
+    }
+  }
   ul {
     list-style: none;
     padding: 0;
@@ -74,9 +87,15 @@
       margin-right: 5%;
       // border: 1px dotted @background-navbar;
       border-radius: 2%;
+      background: @background-default-white;
       img {
         object-fit: cover;
-        width: 100%;
+        width: 200px;
+        height: 190px;
+        margin-top: 10%;
+      }
+      span {
+        max-width: 190px;
       }
       .product-rating-stars {
         display: flex;
