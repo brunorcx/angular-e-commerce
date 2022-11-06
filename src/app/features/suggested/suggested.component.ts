@@ -56,6 +56,7 @@ export class SuggestedComponent implements OnInit {
   goiProds$: Observable<Product[]>;
   filteredProdsEmit: EventEmitter<Product[]>;
   sortType: string;
+  arrow: string;
 
   constructor(public tags: TagsService, private http: HttpClient) {
     this.products = [
@@ -113,6 +114,7 @@ export class SuggestedComponent implements OnInit {
     this.goiProds$ = new Observable<Product[]>();
     this.filteredProdsEmit = new EventEmitter<Product[]>();
     this.sortType = 'Ordenar por:';
+    this.arrow = 'arrow_drop_down';
   }
   ngOnInit(): void {
     this.tags.setTags([
@@ -241,17 +243,21 @@ export class SuggestedComponent implements OnInit {
   }
   sortByName(type: string) {
     this.sortType = 'Nome';
+    this.arrow = 'arrow_drop_down';
     if (type === 'asc') {
       this.filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
     } else {
+      this.arrow = 'arrow_drop_up';
       this.filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
     }
   }
   sortByPrice(type: string) {
     this.sortType = 'Preço';
+    this.arrow = 'arrow_drop_down';
     if (type === 'asc') {
       this.filteredProducts.sort((a, b) => a.price - b.price);
     } else {
+      this.arrow = 'arrow_drop_up';
       this.filteredProducts.sort((a, b) => b.price - a.price);
     }
   }
