@@ -29,15 +29,16 @@
       <div class="suggested-header">
         <div mdbDropdown class="dropdown">
           <button class="dropdown-button" type="button" mdbDropdownToggle>
-            <h3>Ordenar por:</h3>
+            <h3>{{ sortType }}</h3>
             <mat-icon>arrow_drop_down</mat-icon>
           </button>
 
           <!-- prettier-ignore -->
           <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li>Nome</li>
-            <li>Preço</li>
-            <li>Categoria</li>
+            <li (click)="sortByName('asc')">Alfabética (A-Z)</li>
+            <li (click)="sortByName('dsc')">Alfabética (Z-A)</li>
+            <li (click)="sortByPrice('asc')">Menor Preço</li>
+            <li (click)="sortByPrice('dsc')">Maior Preço</li>
           </ul>
         </div>
         <h1 *ngIf="checkFilteredTags(showProducts)">{{ tagsSelected[0] }}</h1>
