@@ -50,6 +50,15 @@
           *ngFor="let product of filteredProducts"
           [@fadeInOut]
         >
+          <!-- prettier-ignore -->
+          <img *ngIf="product.mall === 'gaviao'" class="logo" 
+          src="//img.sitemercado.com.br/redes/ba64b614349e1d50f305169ae11d72de.png"/>
+          <!-- prettier-ignore -->
+          <img *ngIf="product.mall === 'atacadao'" class="logo atacadao" 
+          src="https://static.cotabest.com.br/img/atacadao/brand/logo.svg"/>
+          <!-- prettier-ignore -->
+          <img *ngIf="product.mall === 'goiana'" class="logo goiana"
+            src="https://play-lh.googleusercontent.com/yXHrlJ3_Vgoid3_oZOL0LAM6DmqkQjJydPnVKNQ3Ncv7Os4E3vqUuq6Pfwb3fV7oRQ=w240-h480-rw"/>
           <img src="{{ product.img }}" alt="" />
           <span> {{ product.name }}</span>
           <span>R$ {{ product.price }}</span>

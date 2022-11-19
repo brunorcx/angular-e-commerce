@@ -19,6 +19,7 @@ interface Product {
   rating: number;
   img: string;
   tags: string[];
+  mall: string;
 }
 interface ShowProducts {
   carnes: Product[];
@@ -59,53 +60,7 @@ export class SuggestedComponent implements OnInit {
   arrow: string;
 
   constructor(public tags: TagsService, private http: HttpClient) {
-    this.products = [
-      {
-        name: 'Product 1',
-        price: 50.0,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-        rating: 4.5,
-        img: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Legumes, verduras e vegetais'],
-      },
-      {
-        name: 'Product 2',
-        price: 60.0,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-        rating: 3,
-        img: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Frutas'],
-      },
-      {
-        name: 'Product 3',
-        price: 70.0,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio.',
-        rating: 2.5,
-        img: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Leite e derivados'],
-      },
-      {
-        name: 'Product 4',
-        price: 48.98,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-        rating: 2,
-        img: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Carnes e ovos', 'Frutas'],
-      },
-      {
-        name: 'Product 5',
-        price: 25.77,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-        rating: 1,
-        img: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Frutas'],
-      },
-    ];
+    this.products = [];
     this.filteredProducts = this.products;
     this.filteredBySearch = [];
     this.filteredByTags = [];
@@ -117,13 +72,7 @@ export class SuggestedComponent implements OnInit {
     this.arrow = 'arrow_drop_down';
   }
   ngOnInit(): void {
-    this.tags.setTags([
-      'Carnes',
-      'Hortifruti',
-      'Padaria',
-      'Leite e derivados',
-      'Açúcares e doces',
-    ]);
+    this.tags.setTags(['Carnes', 'Hortifruti', 'Padaria']);
     // 'Carboidratos',
     // 'Legumes, verduras e vegetais',
     // 'Frutas',
@@ -146,7 +95,13 @@ export class SuggestedComponent implements OnInit {
     this.goiProds$.subscribe((data) => {
       console.log(data);
       for (const prod of data) {
-        if (prod.img.indexOf('sem-imagem.png') === -1) this.products.push(prod);
+        if (
+          prod.img.indexOf('sem-imagem.png') === -1 &&
+          prod.img.indexOf('carnes-aves-e-peixes_ind.jpg') === -1 &&
+          prod.img.indexOf('feira_ind.jpg') === -1 &&
+          prod.img.indexOf('padaria_ind.jpg') === -1
+        )
+          this.products.push(prod);
       }
     });
     this.filteredProdsEmit.subscribe((data) => {
