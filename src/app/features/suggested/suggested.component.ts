@@ -93,7 +93,6 @@ export class SuggestedComponent implements OnInit {
 
     this.goiProds$ = this.http.get<Product[]>('http://localhost:3333/products');
     this.goiProds$.subscribe((data) => {
-      console.log(data);
       for (const prod of data) {
         if (
           prod.img.indexOf('sem-imagem.png') === -1 &&
@@ -109,7 +108,9 @@ export class SuggestedComponent implements OnInit {
         // prettier-ignore
         this.showProducts[this.tagsSelected[0].toLowerCase() as keyof ShowProducts] = data;
         console.log(this.showProducts.carnes);
-      } else this.showProducts = <ShowProducts>{};
+      } else {
+        this.showProducts = <ShowProducts>{};
+      }
     });
   }
 
