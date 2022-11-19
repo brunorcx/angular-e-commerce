@@ -5,11 +5,10 @@ import { ManageProductsComponent } from './features/manage-products/manage-produ
 import { SuggestedComponent } from './features/suggested/suggested.component';
 import { MallsComponent } from './features/malls/malls.component';
 const routes: Routes = [
-  { path: 'suggested', component: SuggestedComponent },
+  { path: '', component: SuggestedComponent },
   { path: 'manage-products', component: ManageProductsComponent },
   { path: 'malls', component: MallsComponent },
-  { path: '', redirectTo: '/suggested', pathMatch: 'full' },
-  { path: '**', component: SuggestedComponent }, // redirect to home page on route error
+  { path: '**', redirectTo: '' }, // redirect to home page on route error
 ];
 
 @NgModule({

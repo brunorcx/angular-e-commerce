@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { __makeTemplateObject } from 'tslib';
 import { TagsService } from '../../core/services/tags.service';
 import {
@@ -8,14 +8,23 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-interface Products {
+interface Product {
+  id?: string;
   name: string;
   price: number;
-  description: string;
+  description?: string;
   rating: number;
-  image: string;
+  img: string;
   tags: string[];
+  mall: string;
+}
+interface ShowProducts {
+  carnes: Product[];
+  hortifruti: Product[];
+  padaria: Product[];
 }
 
 @Component({
@@ -33,75 +42,45 @@ interface Products {
           margin: '-30px 0 0 0',
         })
       ),
-      transition('void <=> *', animate(250)),
+      transition('void <=> *', animate(150)),
     ]),
   ],
 })
 export class SuggestedComponent implements OnInit {
-  constructor(public tags: TagsService) {
-    this.products = [
-      {
-        name: 'Product 1',
-        price: 50.0,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-        rating: 4.5,
-        image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Legumes, verduras e vegetais'],
-      },
-      {
-        name: 'Product 2',
-        price: 60.0,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-        rating: 3,
-        image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Frutas'],
-      },
-      {
-        name: 'Product 3',
-        price: 70.0,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio.',
-        rating: 2.5,
-        image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Leite e derivados'],
-      },
-      {
-        name: 'Product 4',
-        price: 48.98,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-        rating: 2,
-        image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Carnes e ovos', 'Frutas'],
-      },
-      {
-        name: 'Product 5',
-        price: 25.77,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
-        rating: 1,
-        image: 'assets/images/products/arroz.png',
-        tags: ['Carboidratos', 'Frutas'],
-      },
-    ];
+  products: Product[];
+  filteredProducts: Product[];
+  filteredBySearch: Product[];
+  filteredByTags: Product[];
+  tagsSelected: string[];
+  showProducts: ShowProducts;
+  searchValue: string = '';
+  goiProds$: Observable<Product[]>;
+  filteredProdsEmit: EventEmitter<Product[]>;
+  sortType: string;
+  arrow: string;
+
+  constructor(public tags: TagsService, private http: HttpClient) {
+    this.products = [];
     this.filteredProducts = this.products;
     this.filteredBySearch = [];
     this.filteredByTags = [];
     this.tagsSelected = [];
+    this.showProducts = <ShowProducts>{};
+    this.goiProds$ = new Observable<Product[]>();
+    this.filteredProdsEmit = new EventEmitter<Product[]>();
+    this.sortType = 'Ordenar por:';
+    this.arrow = 'arrow_drop_down';
   }
   ngOnInit(): void {
-    this.tags.setTags([
-      'Carboidratos',
-      'Legumes, verduras e vegetais',
-      'Frutas',
-      'Leite e derivados',
-      'Carnes e ovos',
-      'Leguminosas e oleaginosas',
-      'Óleos e gorduras',
-      'Açúcares e doces',
-    ]);
+    this.tags.setTags(['Carnes', 'Hortifruti', 'Padaria']);
+    // 'Carboidratos',
+    // 'Legumes, verduras e vegetais',
+    // 'Frutas',
+    // 'Leite e derivados',
+    // 'Carnes e ovos',
+    // 'Leguminosas e oleaginosas',
+    // 'Óleos e gorduras',
+    // 'Açúcares e doces',
     //Reset selected tags after changing routes
     this.tags.setSelectTags([]);
 
@@ -111,14 +90,28 @@ export class SuggestedComponent implements OnInit {
         this.filterProductsByTag();
       }
     });
-  }
 
-  products: Products[] = [];
-  filteredProducts: Products[] = [];
-  filteredBySearch: Products[] = [];
-  filteredByTags: Products[] = [];
-  tagsSelected: string[];
-  searchValue: string = '';
+    this.goiProds$ = this.http.get<Product[]>('http://localhost:3333/products');
+    this.goiProds$.subscribe((data) => {
+      console.log(data);
+      for (const prod of data) {
+        if (
+          prod.img.indexOf('sem-imagem.png') === -1 &&
+          prod.img.indexOf('carnes-aves-e-peixes_ind.jpg') === -1 &&
+          prod.img.indexOf('feira_ind.jpg') === -1 &&
+          prod.img.indexOf('padaria_ind.jpg') === -1
+        )
+          this.products.push(prod);
+      }
+    });
+    this.filteredProdsEmit.subscribe((data) => {
+      if (this.tagsSelected.length === 1) {
+        // prettier-ignore
+        this.showProducts[this.tagsSelected[0].toLowerCase() as keyof ShowProducts] = data;
+        console.log(this.showProducts.carnes);
+      } else this.showProducts = <ShowProducts>{};
+    });
+  }
 
   counter(rating: number) {
     let arrayRating: number[] = [];
@@ -130,6 +123,9 @@ export class SuggestedComponent implements OnInit {
 
     return arrayRating;
   }
+  checkFilteredTags(tags: ShowProducts) {
+    return Object.values(tags).length > 0;
+  }
   searchProducts(searchValue: string) {
     this.filteredBySearch = [];
     let currentProducts = this.products;
@@ -140,8 +136,10 @@ export class SuggestedComponent implements OnInit {
     }
     if (searchValue === '') {
       this.filteredProducts = currentProducts;
+      this.filteredProdsEmit.emit(this.filteredProducts);
       if (this.tagsSelected.length > 0) {
         this.filteredProducts = this.filteredByTags;
+        this.filteredProdsEmit.emit(this.filteredProducts);
       }
     } else {
       currentProducts.filter((product) => {
@@ -152,6 +150,7 @@ export class SuggestedComponent implements OnInit {
       });
 
       this.filteredProducts = this.filteredBySearch;
+      this.filteredProdsEmit.emit(this.filteredProducts);
     }
     if (searchValue !== '') this.filteredBySearch = this.filteredProducts;
     this.searchValue = searchValue;
@@ -164,7 +163,7 @@ export class SuggestedComponent implements OnInit {
       currentProducts = this.filteredProducts;
     }
     if (this.tagsSelected.length > 0) {
-      let filteredProductsByCategory: Products[] = [];
+      let filteredProductsByCategory: Product[] = [];
       currentProducts.forEach((product) => {
         let i = 0;
         if (this.tagsSelected.length <= product.tags.length) {
@@ -186,13 +185,35 @@ export class SuggestedComponent implements OnInit {
           (ele, pos) => filteredProductsByCategory.indexOf(ele) == pos
         );
         this.filteredProducts = uniqueProducts;
+        this.filteredProdsEmit.emit(this.filteredProducts);
       } else {
         this.filteredProducts = filteredProductsByCategory;
+        this.filteredProdsEmit.emit(this.filteredProducts);
       }
     } else {
       this.searchProducts(this.searchValue);
     }
     this.filteredByTags = this.filteredProducts;
     // console.log(['filteredByTags:', this.filteredByTags]);
+  }
+  sortByName(type: string) {
+    this.sortType = 'Nome';
+    this.arrow = 'arrow_drop_down';
+    if (type === 'asc') {
+      this.filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+      this.arrow = 'arrow_drop_up';
+      this.filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+    }
+  }
+  sortByPrice(type: string) {
+    this.sortType = 'Preço';
+    this.arrow = 'arrow_drop_down';
+    if (type === 'asc') {
+      this.filteredProducts.sort((a, b) => a.price - b.price);
+    } else {
+      this.arrow = 'arrow_drop_up';
+      this.filteredProducts.sort((a, b) => b.price - a.price);
+    }
   }
 }
