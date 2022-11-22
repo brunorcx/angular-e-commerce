@@ -115,7 +115,7 @@ export class SuggestedComponent implements OnInit {
     let filteredBySearch: Product[] = [];
     if (searchValue.length > 0) {
       this.filteredByTags.filter((product) => {
-        if (product.name.toLowerCase().includes(searchValue.toLowerCase())) {
+        if (this.localeContains(product.name.toLowerCase(), searchValue.toLowerCase())) {
           filteredBySearch.push(product);
         }
       });
@@ -174,4 +174,13 @@ export class SuggestedComponent implements OnInit {
       }
     }
   }
+
+  localeContains = function (str: string, sub: string) {
+    if (sub === '') return true;
+    if (!sub || !str.length) return false;
+    if (sub.length > str.length) return false;
+    //prettier-ignore
+    let ascii = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    return ascii(str).includes(ascii(sub));
+  };
 }

@@ -19,7 +19,7 @@
     </div>
     <!-- show no products ngif -->
     <div class="no-products" *ngIf="filteredProducts.length === 0; else productsList" [@fadeInOut]>
-      <h2>Nenhum produto encontrado</h2>
+      <h1>Nenhum produto encontrado</h1>
     </div>
     <ng-template #productsList>
       <div id="loading" class="load-wrapp">
