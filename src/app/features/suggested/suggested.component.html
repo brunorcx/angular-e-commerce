@@ -18,14 +18,29 @@
       </button>
     </div>
     <!-- show no products ngif -->
-    <div
-      class="no-products"
-      *ngIf="filteredProducts.length === 0; else productsList"
-      [@fadeInOut]
-    >
-      <h2>Nenhum produto encontrado</h2>
+    <div class="no-products" *ngIf="filteredProducts.length === 0; else productsList" [@fadeInOut]>
+      <h1>Nenhum produto encontrado</h1>
     </div>
     <ng-template #productsList>
+      <div id="loading" class="load-wrapp">
+        <div class="load-6">
+          <div class="letter-holder">
+            <div class="l-1 letter">C</div>
+            <div class="l-2 letter">a</div>
+            <div class="l-3 letter">r</div>
+            <div class="l-4 letter">r</div>
+            <div class="l-5 letter">e</div>
+            <div class="l-6 letter">g</div>
+            <div class="l-7 letter">a</div>
+            <div class="l-8 letter">n</div>
+            <div class="l-9 letter">d</div>
+            <div class="l-10 letter">o</div>
+            <div class="l-11 letter">.</div>
+            <div class="l-12 letter">.</div>
+            <div class="l-13 letter">.</div>
+          </div>
+        </div>
+      </div>
       <div class="suggested-header">
         <div mdbDropdown class="dropdown">
           <button class="dropdown-button" type="button" mdbDropdownToggle>
@@ -33,23 +48,18 @@
             <mat-icon>{{ arrow }}</mat-icon>
           </button>
 
-          <!-- prettier-ignore -->
-          <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton" #sortProducts>
             <li (click)="sortByName('asc')">Alfabética (A-Z)</li>
             <li (click)="sortByName('dsc')">Alfabética (Z-A)</li>
             <li (click)="sortByPrice('asc')">Menor Preço</li>
             <li (click)="sortByPrice('dsc')">Maior Preço</li>
           </ul>
         </div>
-        <h1 *ngIf="checkFilteredTags(showProducts)">{{ tagsSelected[0] }}</h1>
-        <h1 *ngIf="!checkFilteredTags(showProducts)">Todos os produtos</h1>
+        <h1 *ngIf="checkFilteredTags()">{{ tagsSelected[0] }}</h1>
+        <h1 *ngIf="!checkFilteredTags()">Todos os produtos</h1>
       </div>
       <ul>
-        <li
-          class="product"
-          *ngFor="let product of filteredProducts"
-          [@fadeInOut]
-        >
+        <li class="product" *ngFor="let product of filteredProducts" [@fadeInOut]>
           <!-- prettier-ignore -->
           <img *ngIf="product.mall === 'gaviao'" class="logo" 
           src="//img.sitemercado.com.br/redes/ba64b614349e1d50f305169ae11d72de.png"/>
@@ -58,18 +68,13 @@
           src="https://static.cotabest.com.br/img/atacadao/brand/logo.svg"/>
           <!-- prettier-ignore -->
           <img *ngIf="product.mall === 'goiana'" class="logo goiana"
-            src="https://play-lh.googleusercontent.com/yXHrlJ3_Vgoid3_oZOL0LAM6DmqkQjJydPnVKNQ3Ncv7Os4E3vqUuq6Pfwb3fV7oRQ=w240-h480-rw"/>
+            src="assets\images\goiana_logo.jpg"/>
           <img src="{{ product.img }}" alt="" />
           <span> {{ product.name }}</span>
           <span>R$ {{ product.price }}</span>
           <div class="product-rating-stars">
-            <span
-              *ngFor="let number of counter(product.rating)"
-              title="{{ product.rating }}"
-            >
-              <mat-icon *ngIf="number <= product.rating; else half_star">
-                star
-              </mat-icon>
+            <span *ngFor="let number of counter(product.rating)" title="{{ product.rating }}">
+              <mat-icon *ngIf="number <= product.rating; else half_star"> star </mat-icon>
               <ng-template #half_star>
                 <mat-icon #half_star *ngIf="number === 6"> star_half</mat-icon>
               </ng-template>

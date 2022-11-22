@@ -1,15 +1,8 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { __makeTemplateObject } from 'tslib';
 import { TagsService } from '../../core/services/tags.service';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 interface Product {
   id?: string;
@@ -47,27 +40,25 @@ interface ShowProducts {
   ],
 })
 export class SuggestedComponent implements OnInit {
-  products: Product[];
+  allProducts: Product[];
   filteredProducts: Product[];
-  filteredBySearch: Product[];
   filteredByTags: Product[];
   tagsSelected: string[];
   showProducts: ShowProducts;
   searchValue: string = '';
-  goiProds$: Observable<Product[]>;
-  filteredProdsEmit: EventEmitter<Product[]>;
   sortType: string;
   arrow: string;
 
   constructor(public tags: TagsService, private http: HttpClient) {
-    this.products = [];
-    this.filteredProducts = this.products;
-    this.filteredBySearch = [];
+    this.allProducts = [];
+    this.filteredProducts = this.allProducts;
     this.filteredByTags = [];
     this.tagsSelected = [];
-    this.showProducts = <ShowProducts>{};
-    this.goiProds$ = new Observable<Product[]>();
-    this.filteredProdsEmit = new EventEmitter<Product[]>();
+    this.showProducts = <ShowProducts>{
+      carnes: [],
+      hortifruti: [],
+      padaria: [],
+    };
     this.sortType = 'Ordenar por:';
     this.arrow = 'arrow_drop_down';
   }
@@ -87,29 +78,23 @@ export class SuggestedComponent implements OnInit {
     this.tags.getCurrentTags.subscribe((data) => {
       if (data) {
         this.tagsSelected = data;
-        this.filterProductsByTag();
+        this.filterProductsByTag(data);
       }
     });
-
-    this.goiProds$ = this.http.get<Product[]>('http://localhost:3333/products');
-    this.goiProds$.subscribe((data) => {
-      console.log(data);
+    this.showSpinner(true);
+    this.http.get<Product[]>('http://localhost:3333/products').subscribe((data) => {
       for (const prod of data) {
         if (
           prod.img.indexOf('sem-imagem.png') === -1 &&
           prod.img.indexOf('carnes-aves-e-peixes_ind.jpg') === -1 &&
           prod.img.indexOf('feira_ind.jpg') === -1 &&
           prod.img.indexOf('padaria_ind.jpg') === -1
-        )
-          this.products.push(prod);
+        ) {
+          this.allProducts.push(prod);
+          this.showProducts[prod.tags[0].toLowerCase() as keyof ShowProducts].push(prod);
+        }
       }
-    });
-    this.filteredProdsEmit.subscribe((data) => {
-      if (this.tagsSelected.length === 1) {
-        // prettier-ignore
-        this.showProducts[this.tagsSelected[0].toLowerCase() as keyof ShowProducts] = data;
-        console.log(this.showProducts.carnes);
-      } else this.showProducts = <ShowProducts>{};
+      this.showSpinner(false);
     });
   }
 
@@ -123,78 +108,38 @@ export class SuggestedComponent implements OnInit {
 
     return arrayRating;
   }
-  checkFilteredTags(tags: ShowProducts) {
-    return Object.values(tags).length > 0;
+  checkFilteredTags() {
+    return this.tagsSelected.length > 0;
   }
   searchProducts(searchValue: string) {
-    this.filteredBySearch = [];
-    let currentProducts = this.products;
-
-    if (this.tagsSelected.length > 0) {
-      currentProducts = this.filteredProducts;
-      if (currentProducts.length === 0) currentProducts = this.filteredByTags;
-    }
-    if (searchValue === '') {
-      this.filteredProducts = currentProducts;
-      this.filteredProdsEmit.emit(this.filteredProducts);
-      if (this.tagsSelected.length > 0) {
-        this.filteredProducts = this.filteredByTags;
-        this.filteredProdsEmit.emit(this.filteredProducts);
-      }
-    } else {
-      currentProducts.filter((product) => {
-        //filter products and assign to filteredProducts
-        if (product.name.toLowerCase().includes(searchValue.toLowerCase())) {
-          this.filteredBySearch.push(product);
+    let filteredBySearch: Product[] = [];
+    if (searchValue.length > 0) {
+      this.filteredByTags.filter((product) => {
+        if (this.localeContains(product.name.toLowerCase(), searchValue.toLowerCase())) {
+          filteredBySearch.push(product);
         }
       });
-
-      this.filteredProducts = this.filteredBySearch;
-      this.filteredProdsEmit.emit(this.filteredProducts);
+      if (filteredBySearch.length > 0) {
+        this.filteredProducts = filteredBySearch;
+      } else this.filteredProducts = [];
+    } else {
+      this.filterProductsByTag(this.tagsSelected);
     }
-    if (searchValue !== '') this.filteredBySearch = this.filteredProducts;
-    this.searchValue = searchValue;
   }
-  filterProductsByTag() {
-    let currentProducts = this.products;
-    this.filteredByTags = [];
-
-    if (this.filteredBySearch.length > 0) {
-      currentProducts = this.filteredProducts;
-    }
-    if (this.tagsSelected.length > 0) {
-      let filteredProductsByCategory: Product[] = [];
-      currentProducts.forEach((product) => {
-        let i = 0;
-        if (this.tagsSelected.length <= product.tags.length) {
-          for (const tag of this.tagsSelected) {
-            if (product.tags.indexOf(tag) === -1) {
-              break;
-            }
-            i++;
-          }
-        }
-        if (i === this.tagsSelected.length) {
-          filteredProductsByCategory.push(product);
-        }
-      });
-
-      if (filteredProductsByCategory.length > 0) {
-        //Remove duplicates
-        const uniqueProducts = filteredProductsByCategory.filter(
-          (ele, pos) => filteredProductsByCategory.indexOf(ele) == pos
-        );
-        this.filteredProducts = uniqueProducts;
-        this.filteredProdsEmit.emit(this.filteredProducts);
+  filterProductsByTag(tags: string[]) {
+    this.showSpinner(true);
+    setTimeout(() => {
+      if (tags.length > 0) {
+        this.filteredProducts = this.showProducts[tags[0].toLowerCase() as keyof ShowProducts];
+        this.filteredByTags = this.filteredProducts;
       } else {
-        this.filteredProducts = filteredProductsByCategory;
-        this.filteredProdsEmit.emit(this.filteredProducts);
+        this.filteredProducts = this.allProducts;
+        this.filteredByTags = this.filteredProducts;
       }
-    } else {
-      this.searchProducts(this.searchValue);
-    }
-    this.filteredByTags = this.filteredProducts;
-    // console.log(['filteredByTags:', this.filteredByTags]);
+      this.showSpinner(false);
+    });
+    // Add sort based on what has been chosen
+    // this.http.get<Product[]>('http://localhost:3333/products', { params: { tags: tags } })
   }
   sortByName(type: string) {
     this.sortType = 'Nome';
@@ -216,4 +161,26 @@ export class SuggestedComponent implements OnInit {
       this.filteredProducts.sort((a, b) => b.price - a.price);
     }
   }
+  showSpinner(show: boolean) {
+    let el = document.getElementById('loading');
+
+    if (el) {
+      if (show) {
+        el.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      } else {
+        el.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+  }
+
+  localeContains = function (str: string, sub: string) {
+    if (sub === '') return true;
+    if (!sub || !str.length) return false;
+    if (sub.length > str.length) return false;
+    //prettier-ignore
+    let ascii = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    return ascii(str).includes(ascii(sub));
+  };
 }

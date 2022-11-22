@@ -8,6 +8,7 @@
   background: @main-background;
   main {
     margin-left: 5%;
+    min-height: 100vh;
   }
   h1 {
     text-align: left;
@@ -52,6 +53,12 @@
         color: @font-default-white;
         cursor: pointer;
       }
+    }
+  }
+  .no-products {
+    h1 {
+      margin-top: 5%;
+      text-align: center;
     }
   }
   .suggested-header {
@@ -119,5 +126,86 @@
         }
       }
     }
+  }
+}
+
+.load-wrapp {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0 10px 10px 0;
+  padding: 20px 20px 20px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: @main-background;
+  .letter-holder {
+    padding: 16px;
+    .letter {
+      float: left;
+      font-size: 3rem;
+      color: @header-background;
+      font-weight: 500;
+    }
+
+    .l-1 {
+      animation-delay: 0.28s;
+    }
+    .l-2 {
+      animation-delay: 0.4s;
+    }
+    .l-3 {
+      animation-delay: 0.52s;
+    }
+    .l-4 {
+      animation-delay: 0.64s;
+    }
+    .l-5 {
+      animation-delay: 0.76s;
+    }
+    .l-6 {
+      animation-delay: 0.88s;
+    }
+    .l-7 {
+      animation-delay: 1s;
+    }
+    .l-8 {
+      animation-delay: 1.22s;
+    }
+    .l-9 {
+      animation-delay: 1.24s;
+    }
+    .l-10 {
+      animation-delay: 1.36s;
+    }
+    .l-11 {
+      animation-delay: 1.48s;
+    }
+    .l-12 {
+      animation-delay: 1.6s;
+    }
+    .l-13 {
+      animation-delay: 1.72s;
+    }
+  }
+  .load-6 {
+    padding-right: 20%;
+    .letter {
+      animation-name: loadingF;
+      animation-duration: 1.6s;
+      animation-iteration-count: infinite;
+      animation-direction: linear;
+    }
+  }
+}
+
+@keyframes loadingF {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
