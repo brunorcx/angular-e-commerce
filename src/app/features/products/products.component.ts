@@ -3,17 +3,9 @@ import { __makeTemplateObject } from 'tslib';
 import { TagsService } from '../../core/services/tags.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
+import { Product } from '../../core/interfaces/interfaces';
+import { MallService } from '../../core/services/mall.service';
 
-interface Product {
-  id?: string;
-  name: string;
-  price: number;
-  description?: string;
-  rating: number;
-  img: string;
-  tags: string[];
-  mall: string;
-}
 interface ShowProducts {
   carnes: Product[];
   hortifruti: Product[];
@@ -21,9 +13,9 @@ interface ShowProducts {
 }
 
 @Component({
-  selector: 'app-suggested',
-  templateUrl: './suggested.component.html',
-  styleUrls: ['./suggested.component.less'],
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.less'],
   providers: [TagsService],
   animations: [
     trigger('fadeInOut', [
@@ -39,7 +31,7 @@ interface ShowProducts {
     ]),
   ],
 })
-export class SuggestedComponent implements OnInit {
+export class ProductsComponent implements OnInit {
   allProducts: Product[];
   filteredProducts: Product[];
   filteredByTags: Product[];
@@ -49,7 +41,7 @@ export class SuggestedComponent implements OnInit {
   sortType: string;
   arrow: string;
 
-  constructor(public tags: TagsService, private http: HttpClient) {
+  constructor(public tags: TagsService, private http: HttpClient, private mallService: MallService) {
     this.allProducts = [];
     this.filteredProducts = this.allProducts;
     this.filteredByTags = [];
@@ -82,20 +74,23 @@ export class SuggestedComponent implements OnInit {
       }
     });
     this.showSpinner(true);
-    this.http.get<Product[]>('http://localhost:3333/products').subscribe((data) => {
-      for (const prod of data) {
-        if (
-          prod.img.indexOf('sem-imagem.png') === -1 &&
-          prod.img.indexOf('carnes-aves-e-peixes_ind.jpg') === -1 &&
-          prod.img.indexOf('feira_ind.jpg') === -1 &&
-          prod.img.indexOf('padaria_ind.jpg') === -1
-        ) {
-          this.allProducts.push(prod);
-          this.showProducts[prod.tags[0].toLowerCase() as keyof ShowProducts].push(prod);
+    this.http
+      .get<Product[]>('http://localhost:3333/products', { params: { mall: this.mallService.getMall() } })
+      .subscribe((data) => {
+        for (const prod of data) {
+          if (
+            prod.img.indexOf('sem-imagem.png') === -1 &&
+            prod.img.indexOf('carnes-aves-e-peixes_ind.jpg') === -1 &&
+            prod.img.indexOf('feira_ind.jpg') === -1 &&
+            prod.img.indexOf('padaria_ind.jpg') === -1
+          ) {
+            this.allProducts.push(prod);
+            this.showProducts[prod.tags[0].toLowerCase() as keyof ShowProducts].push(prod);
+          }
         }
-      }
-      this.showSpinner(false);
-    });
+        this.mallService.setMall([]);
+        this.showSpinner(false);
+      });
   }
 
   counter(rating: number) {

@@ -238,10 +238,19 @@ import { HeaderComponent } from &#x27;./shared/components/header/header.componen
 import { FooterComponent } from &#x27;./shared/components/footer/footer.component&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
 import { FeaturesModule } from &#x27;./features/features.module&#x27;;
+import { BrowserAnimationsModule } from &#x27;@angular/platform-browser/animations&#x27;;
+import { HttpClientModule } from &#x27;@angular/common/http&#x27;;
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
-  imports: [BrowserModule, AppRoutingModule, MatIconModule, FeaturesModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatIconModule,
+    FeaturesModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

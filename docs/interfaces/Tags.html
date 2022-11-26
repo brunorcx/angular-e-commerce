@@ -28,80 +28,134 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content module">
+               <div class="content interface">
                    <div class="content-data">
 
 
 
+
+
+
+
+
+
+
+
+
+
 <ol class="breadcrumb">
-    <li>Modules</li>
-    <li >AppRoutingModule</li>
+  <li>Interfaces</li>
+  <li
+  >
+  Tags</li>
 </ol>
 
-
 <ul class="nav nav-tabs" role="tablist">
-    <li  class="active" >
-        <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
-    </li>
-    <li >
-        <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
-    </li>
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
 </ul>
 
 <div class="tab-content">
     <div class="tab-pane fade active in" id="c-info">
-
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/app-routing.module.ts</code>
+            <code>src/app/core/services/tags.service.ts</code>
         </p>
 
 
 
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                    <code>Array</code>
+            </p>
 
 
-        <div class="container-fluid module">
-            <div class="row">
-            </div>
-        </div>
 
+            <section>
+    <h3 id="inputs">Indexable</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <code>[index: number]:        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/core/services/tags.service.ts:4</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
-import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
-import { AppComponent } from &#x27;./app.component&#x27;;
-import { HomeComponent } from &#x27;./features/home/home.component&#x27;;
-import { ProductsComponent } from &#x27;./features/products/products.component&#x27;;
-import { MallsComponent } from &#x27;./features/malls/malls.component&#x27;;
-const routes: Routes &#x3D; [
-  { path: &#x27;&#x27;, component: ProductsComponent },
-  { path: &#x27;manage-products&#x27;, component: HomeComponent },
-  { path: &#x27;malls&#x27;, component: MallsComponent },
-  { path: &#x27;**&#x27;, redirectTo: &#x27;&#x27; }, // redirect to home page on route error
-];
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { BehaviorSubject } from &#x27;rxjs&#x27;;
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+export interface Tags extends Array&lt;string&gt; {
+  [index: number]: string;
+}
+
+@Injectable({
+  providedIn: &#x27;root&#x27;,
 })
-export class AppRoutingModule {}
+export class TagsService {
+  constructor() {
+    this.tags &#x3D; [];
+    this.selectedTags &#x3D; [];
+  }
+  private currentTags &#x3D; new BehaviorSubject(Array&lt;string&gt;());
+  getCurrentTags &#x3D; this.currentTags.asObservable();
+
+  tags: Tags;
+  selectedTags: string[];
+
+  updateCurrentTags() {
+    this.currentTags.next(this.selectedTags);
+  }
+  getTags(): Tags {
+    return this.tags;
+  }
+  setTags(tags: Tags) {
+    this.tags &#x3D; tags;
+  }
+  addTag(tag: string) {
+    this.tags.push(tag);
+  }
+  getSelectTags(): string[] {
+    return this.selectedTags;
+  }
+  setSelectTags(selectedTags: string[]) {
+    this.selectedTags &#x3D; selectedTags;
+  }
+  filterTags(title: string, categoryRef: HTMLElement) {
+    let duplicate &#x3D; this.selectedTags.indexOf(title);
+    if (duplicate !&#x3D;&#x3D; -1) {
+      categoryRef.style.color &#x3D; &#x27;whitesmoke&#x27;;
+      this.selectedTags.splice(duplicate, 1);
+    } else {
+      this.selectedTags.push(title);
+      categoryRef.style.color &#x3D; &#x27;#e4de87&#x27;;
+    }
+    this.updateCurrentTags();
+  }
+}
 </code></pre>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -135,8 +189,8 @@ export class AppRoutingModule {}
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppRoutingModule.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Tags.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

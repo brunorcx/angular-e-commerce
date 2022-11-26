@@ -1,1 +1,20 @@
-<p>malls works!</p>
+<div class="malls">
+  <h1>Super mercados</h1>
+
+  <div class="malls-cards">
+    <a class="mall-1" routerLink="/products" routerLinkActive="active" (click)="filterByMall(['gaviao'])">
+      <img
+        src="https://yata-apix-bc0fad87-15d9-4249-add4-c5b30e698527.s3-object.locaweb.com.br/6794d84c73284a0b8917e15fe393e66c.png"
+      />
+    </a>
+    <a class="mall-2" routerLink="/products" routerLinkActive="active" (click)="filterByMall(['goiana'])">
+      <img
+        src="https://us-southeast-1.linodeobjects.com/storage/goiana/media/uploads/empresa/logo_com_goianinha_4b11d961-d612-4b13-94ef-89707c12bd59.png"
+      />
+    </a>
+    <a class="mall-3" routerLink="/products" routerLinkActive="active" (click)="filterByMall(['atacadao'])">
+      <img src="https://static.cotabest.com.br/img/atacadao/brand/logo.svg" />
+    </a>
+  </div>
+</div>
+<router-outlet></router-outlet>
