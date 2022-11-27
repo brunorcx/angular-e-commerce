@@ -124,12 +124,17 @@ export class ProductsComponent implements OnInit {
   filterProductsByTag(tags: string[]) {
     this.showSpinner(true);
     setTimeout(() => {
-      if (tags.length > 0) {
-        this.filteredProducts = this.showProducts[tags[0].toLowerCase() as keyof ShowProducts];
-        this.filteredByTags = this.filteredProducts;
+      if (tags.length > 1) {
+        this.filteredByTags = [];
+        this.filteredProducts = [];
       } else {
-        this.filteredProducts = this.allProducts;
-        this.filteredByTags = this.filteredProducts;
+        if (tags.length > 0) {
+          this.filteredProducts = this.showProducts[tags[0].toLowerCase() as keyof ShowProducts];
+          this.filteredByTags = this.filteredProducts;
+        } else {
+          this.filteredProducts = this.allProducts;
+          this.filteredByTags = this.filteredProducts;
+        }
       }
       this.showSpinner(false);
     });

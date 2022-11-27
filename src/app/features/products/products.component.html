@@ -19,25 +19,6 @@
     </div>
     <!-- show no products ngif -->
     <div class="no-products" *ngIf="filteredProducts.length === 0; else productsList" [@fadeInOut]>
-      <div id="loading" class="load-wrapp">
-        <div class="load-6">
-          <div class="letter-holder">
-            <div class="l-1 letter">C</div>
-            <div class="l-2 letter">a</div>
-            <div class="l-3 letter">r</div>
-            <div class="l-4 letter">r</div>
-            <div class="l-5 letter">e</div>
-            <div class="l-6 letter">g</div>
-            <div class="l-7 letter">a</div>
-            <div class="l-8 letter">n</div>
-            <div class="l-9 letter">d</div>
-            <div class="l-10 letter">o</div>
-            <div class="l-11 letter">.</div>
-            <div class="l-12 letter">.</div>
-            <div class="l-13 letter">.</div>
-          </div>
-        </div>
-      </div>
       <h1>Nenhum produto encontrado</h1>
     </div>
     <ng-template #productsList>

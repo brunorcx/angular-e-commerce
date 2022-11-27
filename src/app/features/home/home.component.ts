@@ -3,13 +3,17 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+  styleUrls: ['./home.component.less'],
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  subTitle: string;
+  constructor() {
+    this.subTitle = 'Sobre';
   }
 
+  ngOnInit(): void {}
+
+  changeSubTitle(subTitle: string) {
+    this.subTitle = subTitle;
+  }
 }
