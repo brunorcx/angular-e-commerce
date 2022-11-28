@@ -342,12 +342,17 @@ export class ProductsComponent implements OnInit {
   filterProductsByTag(tags: string[]) {
     this.showSpinner(true);
     setTimeout(() &#x3D;&gt; {
-      if (tags.length &gt; 0) {
-        this.filteredProducts &#x3D; this.showProducts[tags[0].toLowerCase() as keyof ShowProducts];
-        this.filteredByTags &#x3D; this.filteredProducts;
+      if (tags.length &gt; 1) {
+        this.filteredByTags &#x3D; [];
+        this.filteredProducts &#x3D; [];
       } else {
-        this.filteredProducts &#x3D; this.allProducts;
-        this.filteredByTags &#x3D; this.filteredProducts;
+        if (tags.length &gt; 0) {
+          this.filteredProducts &#x3D; this.showProducts[tags[0].toLowerCase() as keyof ShowProducts];
+          this.filteredByTags &#x3D; this.filteredProducts;
+        } else {
+          this.filteredProducts &#x3D; this.allProducts;
+          this.filteredByTags &#x3D; this.filteredProducts;
+        }
       }
       this.showSpinner(false);
     });

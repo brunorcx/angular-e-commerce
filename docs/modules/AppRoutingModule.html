@@ -79,8 +79,8 @@ import { HomeComponent } from &#x27;./features/home/home.component&#x27;;
 import { ProductsComponent } from &#x27;./features/products/products.component&#x27;;
 import { MallsComponent } from &#x27;./features/malls/malls.component&#x27;;
 const routes: Routes &#x3D; [
-  { path: &#x27;&#x27;, component: ProductsComponent },
-  { path: &#x27;manage-products&#x27;, component: HomeComponent },
+  { path: &#x27;&#x27;, component: HomeComponent },
+  { path: &#x27;products&#x27;, component: ProductsComponent },
   { path: &#x27;malls&#x27;, component: MallsComponent },
   { path: &#x27;**&#x27;, redirectTo: &#x27;&#x27; }, // redirect to home page on route error
 ];

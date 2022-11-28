@@ -359,17 +359,17 @@ export class MallsComponent implements OnInit {
   &lt;h1&gt;Super mercados&lt;/h1&gt;
 
   &lt;div class&#x3D;&quot;malls-cards&quot;&gt;
-    &lt;a class&#x3D;&quot;mall-1&quot; routerLink&#x3D;&quot;/&quot; routerLinkActive&#x3D;&quot;active&quot; (click)&#x3D;&quot;filterByMall([&#x27;gaviao&#x27;])&quot;&gt;
+    &lt;a class&#x3D;&quot;mall-1&quot; routerLink&#x3D;&quot;/products&quot; routerLinkActive&#x3D;&quot;active&quot; (click)&#x3D;&quot;filterByMall([&#x27;gaviao&#x27;])&quot;&gt;
       &lt;img
         src&#x3D;&quot;https://yata-apix-bc0fad87-15d9-4249-add4-c5b30e698527.s3-object.locaweb.com.br/6794d84c73284a0b8917e15fe393e66c.png&quot;
       /&gt;
     &lt;/a&gt;
-    &lt;a class&#x3D;&quot;mall-2&quot; routerLink&#x3D;&quot;/&quot; routerLinkActive&#x3D;&quot;active&quot; (click)&#x3D;&quot;filterByMall([&#x27;goiana&#x27;])&quot;&gt;
+    &lt;a class&#x3D;&quot;mall-2&quot; routerLink&#x3D;&quot;/products&quot; routerLinkActive&#x3D;&quot;active&quot; (click)&#x3D;&quot;filterByMall([&#x27;goiana&#x27;])&quot;&gt;
       &lt;img
         src&#x3D;&quot;https://us-southeast-1.linodeobjects.com/storage/goiana/media/uploads/empresa/logo_com_goianinha_4b11d961-d612-4b13-94ef-89707c12bd59.png&quot;
       /&gt;
     &lt;/a&gt;
-    &lt;a class&#x3D;&quot;mall-3&quot; routerLink&#x3D;&quot;/&quot; routerLinkActive&#x3D;&quot;active&quot; (click)&#x3D;&quot;filterByMall([&#x27;atacadao&#x27;])&quot;&gt;
+    &lt;a class&#x3D;&quot;mall-3&quot; routerLink&#x3D;&quot;/products&quot; routerLinkActive&#x3D;&quot;active&quot; (click)&#x3D;&quot;filterByMall([&#x27;atacadao&#x27;])&quot;&gt;
       &lt;img src&#x3D;&quot;https://static.cotabest.com.br/img/atacadao/brand/logo.svg&quot; /&gt;
     &lt;/a&gt;
   &lt;/div&gt;
@@ -452,7 +452,7 @@ export class MallsComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="malls">  <h1>Super mercados</h1>  <div class="malls-cards">    <a class="mall-1" routerLink="/" routerLinkActive="active" (click)="filterByMall([\'gaviao\'])">      <img        src="https://yata-apix-bc0fad87-15d9-4249-add4-c5b30e698527.s3-object.locaweb.com.br/6794d84c73284a0b8917e15fe393e66c.png"      />    </a>    <a class="mall-2" routerLink="/" routerLinkActive="active" (click)="filterByMall([\'goiana\'])">      <img        src="https://us-southeast-1.linodeobjects.com/storage/goiana/media/uploads/empresa/logo_com_goianinha_4b11d961-d612-4b13-94ef-89707c12bd59.png"      />    </a>    <a class="mall-3" routerLink="/" routerLinkActive="active" (click)="filterByMall([\'atacadao\'])">      <img src="https://static.cotabest.com.br/img/atacadao/brand/logo.svg" />    </a>  </div></div><router-outlet></router-outlet></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="malls">  <h1>Super mercados</h1>  <div class="malls-cards">    <a class="mall-1" routerLink="/products" routerLinkActive="active" (click)="filterByMall([\'gaviao\'])">      <img        src="https://yata-apix-bc0fad87-15d9-4249-add4-c5b30e698527.s3-object.locaweb.com.br/6794d84c73284a0b8917e15fe393e66c.png"      />    </a>    <a class="mall-2" routerLink="/products" routerLinkActive="active" (click)="filterByMall([\'goiana\'])">      <img        src="https://us-southeast-1.linodeobjects.com/storage/goiana/media/uploads/empresa/logo_com_goianinha_4b11d961-d612-4b13-94ef-89707c12bd59.png"      />    </a>    <a class="mall-3" routerLink="/products" routerLinkActive="active" (click)="filterByMall([\'atacadao\'])">      <img src="https://static.cotabest.com.br/img/atacadao/brand/logo.svg" />    </a>  </div></div><router-outlet></router-outlet></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MallsComponent', 'selector': 'app-malls'},{'name': 'ProductsComponent', 'selector': 'app-products'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'MallsComponent'};
