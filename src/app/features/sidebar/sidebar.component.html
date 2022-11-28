@@ -1,5 +1,14 @@
 <div class="sidebar">
-    <div class="sidebar-header">
-        <h3>Categorias</h3>
+  <div class="sidebar-header">
+    <h2>Categorias</h2>
+    <div
+      #categoryRef
+      class="category"
+      *ngFor="let category of tags.getTags()"
+      title="{{ category }}"
+      (click)="tags.filterTags(category, categoryRef)"
+    >
+      <h4>{{ category }}</h4>
+    </div>
+  </div>
 </div>
-

@@ -1,0 +1,42 @@
+@import "../../shared/styles/colors.less";
+@import "../../shared/styles/mediaQuery.less";
+.malls {
+  min-height: 100vh;
+  background: @main-background;
+  text-align: center;
+  h1 {
+    padding-top: 2%;
+  }
+  .malls-cards {
+    display: flex;
+    justify-content: center;
+    > a {
+      flex: 1;
+      min-height: 300px;
+      display: grid;
+      //center itens
+      justify-content: center;
+      text-align: center;
+      margin: 0 2%;
+      // border: 1px dotted @background-navbar;
+      border-radius: 2%;
+      background: @background-default-white;
+      align-items: center;
+      &:hover {
+        cursor: pointer;
+      }
+      &.mall-1 {
+        background: @gaviao-background;
+      }
+      &.mall-2 {
+        background: @goiana-background;
+      }
+      &.mall-3 {
+        background: @atacadao-background;
+      }
+      img {
+        max-height: 200px;
+      }
+    }
+  }
+}
