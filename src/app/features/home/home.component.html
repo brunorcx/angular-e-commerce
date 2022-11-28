@@ -1,0 +1,29 @@
+<div class="home">
+  <div class="text-container">
+    <h1>Bem-vindo</h1>
+    <h2 [@changeDivDimension]="animationState">{{ subTitle }}</h2>
+    <div #description class="description" [@changeDivDimension]="animationState">
+      <p>{{ currentDescription[0] }}</p>
+      <p>{{ currentDescription[1] }}</p>
+      <p>{{ currentDescription[2] }}</p>
+      <p>{{ currentDescription[3] }}</p>
+    </div>
+  </div>
+
+  <div class="change-description">
+    <ul>
+      <li>
+        <button (click)="changeDescription('Sobre', 'about')">Sobre</button>
+      </li>
+      <li>
+        <button (click)="changeDescription('Produtos', 'products')">Produtos</button>
+      </li>
+      <li>
+        <button (click)="changeDescription('Usabilidade', 'usability')">Usabilidade</button>
+      </li>
+      <li>
+        <button (click)="changeDescription('Mercados', 'malls')">Mercados</button>
+      </li>
+    </ul>
+  </div>
+</div>
