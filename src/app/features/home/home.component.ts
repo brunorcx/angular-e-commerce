@@ -79,8 +79,8 @@ export class HomeComponent implements OnInit {
           ' No campo de busca digite o nome do produto e aperte a tecla Enter ou clique na lupa. No lado superior' +
           ' direito é possível ordenar os produtos por preço ou ordem alfabética',
 
-        'Super Mercados - Contém o três supermercados escolhidos para coleta de informações dos produtos.' +
-          ' Clique no super mercado para visualizar produtos oriundos somente deste mercado desejado.' +
+        'Supermercados - Contém o três supermercados escolhidos para coleta de informações dos produtos.' +
+          ' Clique no supermercado para visualizar produtos oriundos somente deste mercado desejado.' +
           ' Recarregue a página para mostrar todos os produtos de todos os supermercados novamente',
       ],
       malls: [
