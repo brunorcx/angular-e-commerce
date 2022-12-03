@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
           ' dessa mensagem para visualizar os tópicos que representam cada botão.',
 
         'Produtos - Selecione a categoria desejada no lado esquerdo da tela ou pelo menu hambúrguer. No momento,' +
-          ' apenas uma categoria por vez pode ser selecionada (O nome da categoria ficará em amarelo para indicar isso).' +
+          ' apenas uma categoria por vez pode ser selecionada.' +
           ' No campo de busca digite o nome do produto e aperte a tecla Enter ou clique na lupa. No lado superior' +
           ' direito é possível ordenar os produtos por preço ou ordem alfabética',
 

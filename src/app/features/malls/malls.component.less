@@ -22,6 +22,7 @@
       border-radius: 2%;
       background: @background-default-white;
       align-items: center;
+      padding: 1%;
       &:hover {
         cursor: pointer;
       }
@@ -35,8 +36,24 @@
         background: @atacadao-background;
       }
       img {
-        max-height: 200px;
+        width: 100%;
+        height: auto;
+      }
+      @media @tablet-m {
+        margin: 0 5% 5% 5%;
+      }
+      @media @phone {
+        margin: 0 5% 5% 5%;
       }
     }
+    @media @tablet-m {
+      flex-direction: column;
+    }
+    @media @phone {
+      flex-direction: column;
+    }
+  }
+  @media @mobile {
+    padding-top: 9%;
   }
 }
