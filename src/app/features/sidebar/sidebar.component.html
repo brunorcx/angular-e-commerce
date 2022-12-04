@@ -1,5 +1,9 @@
 <div class="sidebar">
-  <div class="sidebar-header">
+  <div id="sidebar" class="sidebar-header">
+    <div class="category-mobile">
+      <p>Categorias</p>
+      <mat-icon (click)="openSidebar()"> menu_open </mat-icon>
+    </div>
     <h2>Categorias</h2>
     <div
       #categoryRef
@@ -8,7 +12,7 @@
       title="{{ category }}"
       (click)="tags.filterTags(category, categoryRef)"
     >
-      <h4>{{ category }}</h4>
+      <h4 (click)="openSidebar()">{{ category }}</h4>
     </div>
   </div>
 </div>

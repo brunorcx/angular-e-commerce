@@ -13,15 +13,15 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
   openHeader() {
-    this.open = !this.open;
-    let el = document.getElementById('toolbar');
-    if (el) {
+    if (window.innerWidth < 959) {
+      this.open = !this.open;
+      (document.getElementById('toolbar') as HTMLDivElement).className = 'toolbar open';
       if (this.open) {
-        el.className = 'toolbar open';
-        document.body.style.overflow = 'hidden';
+        (document.getElementById('toolbar') as HTMLDivElement).className = 'toolbar open';
+        document.body.style.overflowY = 'hidden';
       } else {
-        el.className = 'toolbar';
-        document.body.style.overflow = 'auto';
+        (document.getElementById('toolbar') as HTMLDivElement).className = 'toolbar';
+        document.body.style.overflowY = 'auto';
       }
     }
   }
