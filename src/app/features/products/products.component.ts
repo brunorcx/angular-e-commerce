@@ -71,6 +71,7 @@ export class ProductsComponent implements OnInit {
       if (data) {
         this.tagsSelected = data;
         this.filterProductsByTag(data);
+        (document.getElementById('search') as HTMLInputElement).value = '';
       }
     });
     this.showSpinner(true);
@@ -167,10 +168,10 @@ export class ProductsComponent implements OnInit {
     if (el) {
       if (show) {
         el.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflowY = 'hidden';
       } else {
         el.style.display = 'none';
-        document.body.style.overflow = 'auto';
+        document.body.style.overflowY = 'auto';
       }
     }
   }
