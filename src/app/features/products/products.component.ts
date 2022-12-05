@@ -76,7 +76,9 @@ export class ProductsComponent implements OnInit {
     });
     this.showSpinner(true);
     this.http
-      .get<Product[]>('http://localhost:3333/products', { params: { mall: this.mallService.getMall() } })
+      .get<Product[]>('https://rodriguesdevnode.herokuapp.com/products', {
+        params: { mall: this.mallService.getMall() },
+      })
       .subscribe((data) => {
         for (const prod of data) {
           if (
